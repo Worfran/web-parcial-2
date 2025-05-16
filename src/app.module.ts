@@ -4,6 +4,9 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { EstudianteModule } from './estudiante/estudiante.module';
+import { ActividadModule } from './actividad/actividad.module';
+import { ResennaModule } from './resenna/resenna.module';
 
 @Module({
   imports: [
@@ -24,6 +27,9 @@ import { ServeStaticModule } from '@nestjs/serve-static';
       rootPath: join(__dirname, '..', 'public'),
       serveRoot: '/static/',
     }),
+    EstudianteModule,
+    ActividadModule,
+    ResennaModule,
   ],
   controllers: [AppController],
   providers: [AppService],
