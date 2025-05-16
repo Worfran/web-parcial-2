@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, TableInheritance, OneToOne} from 'typeorm';
+import { ActividadEntitty } from 'src/actividad/entities/actividad.entity';
+import { Entity, Column, PrimaryGeneratedColumn, TableInheritance, OneToOne, ManyToMany} from 'typeorm';
 
 
 @Entity()
@@ -21,5 +22,8 @@ export class EstudianteEntity {
 
   @Column()
   semestre: number;
+
+  @ManyToMany(() => ActividadEntitty, actividad => actividad.estudiantes)
+  actividades: ActividadEntitty[];
   
 }

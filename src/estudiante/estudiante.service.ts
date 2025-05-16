@@ -18,10 +18,6 @@ export class EstudianteService {
     return this.usuarioEstudiante.save(nuevoUsuario);
   }
 
-  async findAll(): Promise<EstudianteEntity[]> {
-    return this.usuarioEstudiante.find();
-  }
-
   async findOne(id: string): Promise<EstudianteEntity> {
     const estudiante = await this.usuarioEstudiante.findOneBy({ id })
 
@@ -35,19 +31,5 @@ export class EstudianteService {
     return estudiante ;
   }
 
-  async findByEmail(correo: string): Promise<EstudianteEntity> {
-    const estudiante = await this.usuarioEstudiante.findOne({ where: { correo } })
-    if (!estudiante){
-      throw new BusinessLogicException(
-        'estudiante no encontrado.',
-        BusinessError.NOT_FOUND,
-      );
-    }
-
-    return estudiante ;
-  }
-
-  async remove(id: string): Promise<void> {
-    await this.usuarioEstudiante.delete(id);
-  }
 }
+
