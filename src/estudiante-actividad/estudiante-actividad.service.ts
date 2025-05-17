@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 
 import { EstudianteEntity } from '../estudiante/entities/estudiante.entity';
 import { ActividadEntitty } from '../actividad/entities/actividad.entity';
-import { BusinessError, BusinessLogicException } from '../shared/errors/business-errors';
+import { BussinessError, BussinessLogicException } from '../shared/errors/business-errors';
 
 @Injectable()
 export class EstudianteActividadService {
@@ -21,31 +21,31 @@ export class EstudianteActividadService {
         const estudiante = await this.estudianteRepository.findOne({ where: { id: estudianteid }, relations: ['actividades'] });
 
         if (!estudiante) {
-            throw new BusinessLogicException('Estudiante not found',
-                BusinessError.BAD_REQUEST
+            throw new BussinessLogicException('Estudiante not found',
+                BussinessError.BAD_REQUEST
             );
         }
 
         const actividad = await this.actividadRepository.findOne({ where: { id: actividadid } });
 
         if (!actividad) {
-            throw new BusinessLogicException('Actividad not found',
-                BusinessError.BAD_REQUEST
+            throw new BussinessLogicException('Actividad not found',
+                BussinessError.BAD_REQUEST
             );
         }
 
         if (estudiante.actividades.some(a => a.id === actividadid)) {
-            throw new BusinessLogicException('Estudiante ya inscrito en la actividad',
-                BusinessError.BAD_REQUEST
+            throw new BussinessLogicException('Estudiante ya inscrito en la actividad',
+                BussinessError.BAD_REQUEST
             );
         }
 
         if ((actividad.cupoMaximo - actividad.estudiantes.length) > 0 && actividad.estado === 0){
-            throw new BusinessLogicException('No hay cupos disponibles para la actividad',
-                BusinessError.BAD_REQUEST
+            throw new BussinessLogicException('No hay cupos disponibles para la actividad',
+                BussinessError.BAD_REQUEST
             );
         }
-        
+
         estudiante.actividades.push(actividad);
         await this.estudianteRepository.save(estudiante);
         return estudiante;

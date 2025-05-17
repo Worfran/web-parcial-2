@@ -3,7 +3,7 @@ import { CreateEstudianteDto } from './dto/create-estudiante.dto';
 import { EstudianteEntity } from './entities/estudiante.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { BusinessError, BusinessLogicException } from '../shared/errors/business-errors';
+import { BussinessError, BussinessLogicException } from '../shared/errors/business-errors';
 
 
 @Injectable()
@@ -17,19 +17,19 @@ export class EstudianteService {
     const { correo, semestre } = createUsuarioDto;
 
     if (!correo.match('^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')){
-      throw new BusinessLogicException(
+      throw new BussinessLogicException(
         'Email format not valid.',
-        BusinessError.BAD_REQUEST
+        BussinessError.BAD_REQUEST
       )
     }
 
     if (semestre < 1 && semestre > 10){
-      throw new BusinessLogicException(
+      throw new BussinessLogicException(
         'El semestre ingresado no es valido.',
-        BusinessError.BAD_REQUEST
+        BussinessError.BAD_REQUEST
       )
     }
-    
+
     const nuevoUsuario = this.usuarioEstudiante.create(createUsuarioDto);
     return this.usuarioEstudiante.save(nuevoUsuario);
   }
@@ -38,9 +38,9 @@ export class EstudianteService {
     const estudiante = await this.usuarioEstudiante.findOneBy({ id })
 
     if (!estudiante){
-      throw new BusinessLogicException(
+      throw new BussinessLogicException(
         'estudiante no encontrado.',
-        BusinessError.NOT_FOUND,
+        BussinessError.NOT_FOUND,
       );
     }
 

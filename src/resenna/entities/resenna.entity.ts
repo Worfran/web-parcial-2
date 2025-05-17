@@ -1,8 +1,7 @@
+import { PrimaryGeneratedColumn, Column, ManyToOne, Entity } from "typeorm"
 import { ActividadEntitty } from "../../actividad/entities/actividad.entity";
-import { PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
 
-
-
+@Entity('resenna')
 export class ResennaEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
@@ -18,5 +17,8 @@ export class ResennaEntity {
 
     @ManyToOne( () => ActividadEntitty, actividad => actividad.resennas)
     actividad: ActividadEntitty;
+
+    @ManyToOne( () => ActividadEntitty, actividad => actividad.resennas)
+    estudiante: ActividadEntitty;
 
 }

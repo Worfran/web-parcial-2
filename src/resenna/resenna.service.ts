@@ -1,23 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateResennaDto } from './dto/create-resenna.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ResennaEntity } from './entities/resenna.entity';
+import { Repository } from 'typeorm';
+import { BussinessError, BussinessLogicException } from '../shared/errors/business-errors';
 
 
 @Injectable()
 export class ResennaService {
-  create(createResennaDto: CreateResennaDto) {
-    return 'This action adds a new resenna';
+  constructor(
+    @InjectRepository(ResennaEntity)
+    private readonly resennaRepository: Repository<ResennaEntity>,
+  ){}
+
+  async create(createResennaDto: CreateResennaDto): Promise<ResennaEntity> {
+    const nuevaResenna = this.resennaRepository.create(createResennaDto);
+    return this.resennaRepository.save(nuevaResenna);
   }
 
-  findAll() {
-    return `This action returns all resenna`;
-  }
+  async findOne(id: string): Promise<ResennaEntity> {
+    const resenna = await this.resennaRepository.findOne({ where: { id } });
 
-  findOne(id: number) {
-    return `This action returns a #${id} resenna`;
-  }
+    if (!resenna) {
+      throw new BussinessLogicException(
+        'Resenna not found',
+        BussinessError.NOT_FOUND,
+      );
+    }
 
-
-  remove(id: number) {
-    return `This action removes a #${id} resenna`;
+    return resenna;
   }
 }

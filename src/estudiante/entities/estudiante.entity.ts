@@ -1,8 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, OneToMany} from 'typeorm';
 import { ActividadEntitty } from '../../actividad/entities/actividad.entity';
+import { ResennaEntity } from '../../resenna/entities/resenna.entity';
 
 
-@Entity()
+@Entity('estudiante')
 export class EstudianteEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -24,5 +25,8 @@ export class EstudianteEntity {
 
   @ManyToMany(() => ActividadEntitty, actividad => actividad.estudiantes)
   actividades: ActividadEntitty[];
+
+  @OneToMany( () => ResennaEntity, resenna => resenna.estudiante)
+  resennas: ResennaEntity[];
   
 }
