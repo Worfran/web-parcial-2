@@ -3,7 +3,7 @@ import { CreateActividadDto } from './dto/create-actividad.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ActividadEntitty } from './entities/actividad.entity';
-import { BussinessError, BussinessLogicException } from 'src/shared/errors/business-errors';
+import { BussinessError, BussinessLogicException } from '../shared/errors/business-errors';
 
 
 @Injectable()
