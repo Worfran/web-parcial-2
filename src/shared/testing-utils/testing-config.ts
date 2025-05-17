@@ -17,6 +17,8 @@ export const TypeOrmTestingConfig = () => [
     synchronize: true,
   }),
   TypeOrmModule.forFeature([
-
+    ActividadEntitty,
+    EstudianteEntity,
+    ResennaEntity
   ]),
 ];

@@ -43,4 +43,3 @@ import { EstudianteActividadModule } from './estudiante-actividad/estudiante-act
 })
 export class AppModule {}
 
-// npm install @nestjs/serve-static
