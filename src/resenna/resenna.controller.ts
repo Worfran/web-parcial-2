@@ -7,6 +7,9 @@ import { CreateResennaDto } from './dto/create-resenna.dto';
 export class ResennaController {
   constructor(private readonly resennaService: ResennaService) {}
 
-
+  @Post()
+  create(@Body() createResennaDto: CreateResennaDto) {
+    return this.resennaService.agregarResenna(createResennaDto);
+  }
 
 }

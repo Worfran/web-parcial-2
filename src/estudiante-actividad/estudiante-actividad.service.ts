@@ -21,7 +21,7 @@ export class EstudianteActividadService {
         const estudiante = await this.estudianteRepository.findOne({ where: { id: estudianteid }, relations: ['actividades'] });
 
         if (!estudiante) {
-            throw new BussinessLogicException('Estudiante not found',
+            throw new BussinessLogicException('Estudiante no encontrado',
                 BussinessError.BAD_REQUEST
             );
         }
@@ -29,7 +29,7 @@ export class EstudianteActividadService {
         const actividad = await this.actividadRepository.findOne({ where: { id: actividadid } });
 
         if (!actividad) {
-            throw new BussinessLogicException('Actividad not found',
+            throw new BussinessLogicException('Actividad no encontrada',
                 BussinessError.BAD_REQUEST
             );
         }

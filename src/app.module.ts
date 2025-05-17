@@ -11,7 +11,6 @@ import { EstudianteEntity } from './estudiante/entities/estudiante.entity';
 import { ActividadEntitty } from './actividad/entities/actividad.entity';
 import { ResennaEntity } from './resenna/entities/resenna.entity';
 import { EstudianteActividadModule } from './estudiante-actividad/estudiante-actividad.module';
-import { ResennaActividadModule } from './resenna-actividad/resenna-actividad.module';
 
 @Module({
   imports: [
@@ -38,7 +37,6 @@ import { ResennaActividadModule } from './resenna-actividad/resenna-actividad.mo
     ActividadModule,
     ResennaModule,
     EstudianteActividadModule,
-    ResennaActividadModule,
   ],
   controllers: [AppController],
   providers: [AppService],

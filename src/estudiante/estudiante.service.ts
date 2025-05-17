@@ -13,12 +13,12 @@ export class EstudianteService {
     private readonly usuarioEstudiante: Repository<EstudianteEntity>,
   ) {}
 
-  async create(createUsuarioDto: CreateEstudianteDto): Promise<EstudianteEntity> {
-    const { correo, semestre } = createUsuarioDto;
+  async crearEstudiante(createEstudianteDto: CreateEstudianteDto): Promise<EstudianteEntity> {
+    const { correo, semestre } = createEstudianteDto;
 
     if (!correo.match('^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')){
       throw new BussinessLogicException(
-        'Email format not valid.',
+        'El correo electronico no tiene un formato valido.',
         BussinessError.BAD_REQUEST
       )
     }
@@ -30,16 +30,16 @@ export class EstudianteService {
       )
     }
 
-    const nuevoUsuario = this.usuarioEstudiante.create(createUsuarioDto);
+    const nuevoUsuario = this.usuarioEstudiante.create(createEstudianteDto);
     return this.usuarioEstudiante.save(nuevoUsuario);
   }
 
-  async findOne(id: string): Promise<EstudianteEntity> {
+  async findEstudianteById(id: string): Promise<EstudianteEntity> {
     const estudiante = await this.usuarioEstudiante.findOneBy({ id })
 
     if (!estudiante){
       throw new BussinessLogicException(
-        'estudiante no encontrado.',
+        'Estudiante no encontrado.',
         BussinessError.NOT_FOUND,
       );
     }

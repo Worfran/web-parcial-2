@@ -13,7 +13,7 @@ export class ActividadService {
     private readonly actividadRepository: Repository<ActividadEntitty>
   ){}
 
-  async create(createActividadDto: CreateActividadDto): Promise<ActividadEntitty> {
+  async crearAvtividad(createActividadDto: CreateActividadDto): Promise<ActividadEntitty> {
       const { titulo, estado } = createActividadDto;
       if (estado !== 0){
         throw new BussinessLogicException(
