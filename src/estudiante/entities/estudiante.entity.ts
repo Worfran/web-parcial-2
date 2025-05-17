@@ -1,9 +1,8 @@
-import { ActividadEntitty } from 'src/actividad/entities/actividad.entity';
-import { Entity, Column, PrimaryGeneratedColumn, TableInheritance, OneToOne, ManyToMany} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany} from 'typeorm';
+import { ActividadEntitty } from '../../actividad/entities/actividad.entity';
 
 
 @Entity()
-@TableInheritance({ column: { type: 'varchar', name: 'type' } })
 export class EstudianteEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

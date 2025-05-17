@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateEstudianteDto } from './dto/create-estudiante.dto';
 import { EstudianteEntity } from './entities/estudiante.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -14,6 +14,22 @@ export class EstudianteService {
   ) {}
 
   async create(createUsuarioDto: CreateEstudianteDto): Promise<EstudianteEntity> {
+    const { correo, semestre } = createUsuarioDto;
+
+    if (!correo.match('^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')){
+      throw new BusinessLogicException(
+        'Email format not valid.',
+        BusinessError.BAD_REQUEST
+      )
+    }
+
+    if (semestre < 1 && semestre > 10){
+      throw new BusinessLogicException(
+        'El semestre ingresado no es valido.',
+        BusinessError.BAD_REQUEST
+      )
+    }
+    
     const nuevoUsuario = this.usuarioEstudiante.create(createUsuarioDto);
     return this.usuarioEstudiante.save(nuevoUsuario);
   }

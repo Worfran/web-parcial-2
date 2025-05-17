@@ -7,6 +7,11 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { EstudianteModule } from './estudiante/estudiante.module';
 import { ActividadModule } from './actividad/actividad.module';
 import { ResennaModule } from './resenna/resenna.module';
+import { EstudianteEntity } from './estudiante/entities/estudiante.entity';
+import { ActividadEntitty } from './actividad/entities/actividad.entity';
+import { ResennaEntity } from './resenna/entities/resenna.entity';
+import { EstudianteActividadModule } from './estudiante-actividad/estudiante-actividad.module';
+import { ResennaActividadModule } from './resenna-actividad/resenna-actividad.module';
 
 @Module({
   imports: [
@@ -18,7 +23,9 @@ import { ResennaModule } from './resenna/resenna.module';
       password: 'postgres',
       database: 'parcial', //mirar si es el nombre correcto
       entities:[
-
+        EstudianteEntity,
+        ActividadEntitty,
+        ResennaEntity
       ],
       synchronize: true,
       dropSchema: true,
@@ -30,6 +37,8 @@ import { ResennaModule } from './resenna/resenna.module';
     EstudianteModule,
     ActividadModule,
     ResennaModule,
+    EstudianteActividadModule,
+    ResennaActividadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
