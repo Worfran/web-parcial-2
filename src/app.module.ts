@@ -20,7 +20,7 @@ import { EstudianteActividadModule } from './estudiante-actividad/estudiante-act
       port: 5432,
       username: 'postgres',
       password: 'postgres',
-      database: 'parcial', //mirar si es el nombre correcto
+      database: 'parcial',
       entities:[
         EstudianteEntity,
         ActividadEntitty,

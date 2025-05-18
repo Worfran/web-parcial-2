@@ -83,13 +83,6 @@ export class ActividadService {
       relations: ['estudiantes', 'resennas'],
     });
 
-    if (actividades.length === 0) {
-      throw new BussinessLogicException(
-        'No se encontraron actividades para la fecha especificada',
-        BussinessError.NOT_FOUND
-      );
-    }
-
     return actividades;
   }
 }
