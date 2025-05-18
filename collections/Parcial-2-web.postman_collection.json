@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "2b813aff-97ee-42a7-ac0e-1362080ced0f",
 		"name": "Parcial-2-web",
+		"description": "Pruebas sobre la API Rest Parcial - 2.\n\nSe escogieron estos escenarios de prueba para poder mostrar al usuario como deberían ser las peticiones realizadas para poder interactuar adecuadamente con la persistencia de la aplicación.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "23408799",
 		"_collection_link": "https://isis-3710-web.postman.co/workspace/Web~350a10f6-55ea-44f8-a203-1fa20f1b2893/collection/23408799-2b813aff-97ee-42a7-ac0e-1362080ced0f?action=share&source=collection_link&creator=23408799"
@@ -98,7 +99,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Pruebas sobre los endpoint del controlador de estudiante."
 		},
 		{
 			"name": "Activididad",
@@ -162,7 +164,6 @@
 									"pm.test(\"Estado actualizado\", function () {",
 									"    var json = pm.response.json();",
 									"    pm.expect(json.estado).to.eql(1);",
-									"    pm.collectionVariables.set(\"actividadCId\", json.id);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -239,7 +240,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Pruebas sobre los endpoints del controlador de actividades."
 		},
 		{
 			"name": "Estudiante-Actvidad",
@@ -344,7 +346,6 @@
 									"pm.test(\"Estado actualizado\", function () {",
 									"    var json = pm.response.json();",
 									"    pm.expect(json.estado).to.eql(2);",
-									"    pm.collectionVariables.set(\"actividadCId\", json.id);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -377,7 +378,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Pruebas sobre el controlador de la relacion estudiante-actividad.\n\nSe crea una nueva actividada para cumplir con las restricciones del negocio.\n\nSe cambia el estado de la actividad creada para poder usarla en el siguiente test."
 		},
 		{
 			"name": "Resenna",
@@ -408,7 +410,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"comentario\": \"Muy buena actividad, aprendí mucho.\",\n    \"calificacion\": 5,\n    \"fecha\": \"2025-05-18T12:00:00.000Z\",\n    \"estudianteId\": \"{{estudianteId}}\",\n    \"actividadId\": \"{{actividadCId}}\"\n}",
+							"raw": "{\n    \"comentario\": \"Muy buena actividad, aprendí mucho.\",\n    \"calificacion\": 5,\n    \"fecha\": \"2025-05-18T12:00:00.000Z\",\n    \"estudianteId\": \"{{estudianteId}}\",\n    \"actividadId\": \"{{actividadId}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -427,7 +429,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Prueba sobre el controlador agregar una reseña.\n\nSe usa la actividad creada en la prueba estduiante-actvidad para que se cumplan los requisitos de negocio."
 		}
 	],
 	"event": [
@@ -475,10 +478,6 @@
 		},
 		{
 			"key": "fecha",
-			"value": ""
-		},
-		{
-			"key": "actividadCId",
 			"value": ""
 		}
 	]
