@@ -2,7 +2,7 @@ import { Controller, Post, Body, Param, Put, Get } from '@nestjs/common';
 import { ActividadService } from './actividad.service';
 import { CreateActividadDto } from './dto/create-actividad.dto';
 
-@Controller('actividad')
+@Controller('actividades')
 export class ActividadController {
   constructor(private readonly actividadService: ActividadService) {}
 

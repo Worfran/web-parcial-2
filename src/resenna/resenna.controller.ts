@@ -3,7 +3,7 @@ import { ResennaService } from './resenna.service';
 import { CreateResennaDto } from './dto/create-resenna.dto';
 
 
-@Controller('resenna')
+@Controller('resennas')
 export class ResennaController {
   constructor(private readonly resennaService: ResennaService) {}
 

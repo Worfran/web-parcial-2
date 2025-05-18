@@ -16,7 +16,7 @@ export class EstudianteService {
   async crearEstudiante(createEstudianteDto: CreateEstudianteDto): Promise<EstudianteEntity> {
     const { correo, semestre } = createEstudianteDto;
 
-    if (!correo.match('^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')){
+    if (!correo.match(/^[\w\-.]+@([\w\-]+\.)+[\w\-]{2,4}$/)){
       throw new BussinessLogicException(
         'El correo electronico no tiene un formato valido.',
         BussinessError.BAD_REQUEST

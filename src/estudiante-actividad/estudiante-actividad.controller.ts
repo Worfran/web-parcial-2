@@ -2,7 +2,7 @@ import { Controller, Param, Post } from '@nestjs/common';
 import { EstudianteActividadService } from './estudiante-actividad.service';
 import { EstudianteEntity } from '../estudiante/entities/estudiante.entity';
 
-@Controller('estudiante-actividad')
+@Controller('estudiantes')
 export class EstudianteActividadController {
     constructor(
         private readonly estudianteActividadService: EstudianteActividadService,

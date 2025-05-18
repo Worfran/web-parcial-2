@@ -4,7 +4,7 @@ import { CreateEstudianteDto } from './dto/create-estudiante.dto';
 import { EstudianteEntity } from './entities/estudiante.entity';
 
 
-@Controller('estudiante')
+@Controller('estudiantes')
 export class EstudianteController {
   constructor(private readonly estudianteService: EstudianteService) {}
 

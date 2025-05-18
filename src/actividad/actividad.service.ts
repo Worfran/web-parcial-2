@@ -54,7 +54,13 @@ export class ActividadService {
     const actividad = await this.findOne(id);
     const { cupoMaximo, estudiantes } = actividad;
     const estudiantesl = estudiantes.length;
-
+    if (!actividad){
+      throw new BussinessLogicException(
+        'No se encontro la actividad',
+        BussinessError.NOT_FOUND
+      );
+    };
+    
     if ( (estado === 1) && (estudiantesl / cupoMaximo <= 0.8)) {
       throw new BussinessLogicException(
           'No se puede cerrar la actividad con el cupo registrado',
@@ -62,7 +68,7 @@ export class ActividadService {
       );
     } else if ( (estado === 2) && (cupoMaximo - estudiantesl !== 0)) {
       throw new BussinessLogicException(
-          'No se puede finalizar la actividad, aun hay cupo',
+          'No se puede finalizar la actividad, aun hay cupo.',
           BussinessError.BAD_REQUEST
       );
     } else if ( (estado !== 0) && (estado !== 1) && (estado !== 2)) {
