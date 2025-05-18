@@ -24,7 +24,11 @@ export class ResennaService {
   async agregarResenna(createResennaDto: CreateResennaDto): Promise<ResennaEntity> {
     const { estudianteId, actividadId } = createResennaDto;
 
-    const estudiante = await this.estudianteRepository.findOne({ where: { id: estudianteId } });
+    const estudiante = await this.estudianteRepository.findOne({
+      where: { id: estudianteId },
+      relations: ['actividades'],
+    });
+
     if (!estudiante) {
       throw new BussinessLogicException(
         'Estudiante no encontrado.',

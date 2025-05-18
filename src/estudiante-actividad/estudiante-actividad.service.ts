@@ -18,18 +18,24 @@ export class EstudianteActividadService {
     ){}
 
     async inscribirseActividad(estudianteid: string, actividadid: string): Promise<EstudianteEntity>{
-        const estudiante = await this.estudianteRepository.findOne({ where: { id: estudianteid }, relations: ['actividades'] });
+        const estudiante = await this.estudianteRepository.findOne({ 
+            where: { id: estudianteid }, 
+            relations: ['actividades'] 
+        });
 
         if (!estudiante) {
-            throw new BussinessLogicException('Estudiante no encontrado',
+            throw new BussinessLogicException('Estudiante no encontrado.',
                 BussinessError.BAD_REQUEST
             );
         }
 
-        const actividad = await this.actividadRepository.findOne({ where: { id: actividadid } });
+        const actividad = await this.actividadRepository.findOne({ 
+            where: { id: actividadid },
+            relations: ['estudiantes']
+         });
 
         if (!actividad) {
-            throw new BussinessLogicException('Actividad no encontrada',
+            throw new BussinessLogicException('Actividad no encontrada.',
                 BussinessError.BAD_REQUEST
             );
         }
@@ -40,7 +46,7 @@ export class EstudianteActividadService {
             );
         }
 
-        if ((actividad.cupoMaximo - actividad.estudiantes.length) > 0 && actividad.estado === 0){
+        if ((actividad.cupoMaximo - actividad.estudiantes.length) <= 0 || actividad.estado !== 0){
             throw new BussinessLogicException('No hay cupos disponibles para la actividad',
                 BussinessError.BAD_REQUEST
             );
