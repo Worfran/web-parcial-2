@@ -1,0 +1,485 @@
+{
+	"info": {
+		"_postman_id": "2b813aff-97ee-42a7-ac0e-1362080ced0f",
+		"name": "Parcial-2-web",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23408799",
+		"_collection_link": "https://isis-3710-web.postman.co/workspace/Web~350a10f6-55ea-44f8-a203-1fa20f1b2893/collection/23408799-2b813aff-97ee-42a7-ac0e-1362080ced0f?action=share&source=collection_link&creator=23408799"
+	},
+	"item": [
+		{
+			"name": "Estudiante",
+			"item": [
+				{
+					"name": "crear estudiante",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Codigo de respuesta 201\", function () {",
+									"    pm.response.to.have.status(201)",
+									"});",
+									"pm.test(\"El estudiante tine Id\", function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property(\"id\");",
+									"    pm.collectionVariables.set(\"estudianteId\", json.id);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cedula\": 123456,\n    \"nombre\": \"Antonio Orquidea\",\n    \"correo\": \"orquidea@example.com\",\n    \"programa\": \"Ingenieria\",\n    \"semestre\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/estudiantes",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"estudiantes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar estudiante",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Codigo de respuesta 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"La resouesta tiene la id adecuada.\", function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.id).to.eql(pm.collectionVariables.get(\"estudianteId\"));",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cedula\": 123456,\n  \"nombre\": \"Antonio Orquidea\",\n  \"correo\": \"orquidea@example.com\",\n  \"programa\": \"Ingenieria\",\n  \"semestre\": 5\n}"
+						},
+						"url": {
+							"raw": "{{baseURL}}/estudiantes/{{estudianteId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"estudiantes",
+								"{{estudianteId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Activididad",
+			"item": [
+				{
+					"name": "crear actividad",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Codigo de respuesta 201\", function () {",
+									"    pm.response.to.have.status(201)",
+									"});",
+									"pm.test(\"Tiene Id adecuado\", function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property(\"id\");",
+									"    pm.collectionVariables.set(\"actividadId\", json.id);",
+									"    pm.collectionVariables.set(\"fecha\", json.fecha);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Programacion Web\",\n    \"fecha\": \"2025-05-18\",\n    \"cupoMaximo\": 0,\n    \"estado\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/actividades",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"actividades"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cambiar estado",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Codigo respuesta 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Estado actualizado\", function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.estado).to.eql(1);",
+									"    pm.collectionVariables.set(\"actividadCId\", json.id);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"estado\": 1,\n    \"titulo\": \"Programacion Web\",\n    \"fecha\": \"2025-05-18\",\n    \"cupoMaximo\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/actividades/{{actividadId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"actividades",
+								"{{actividadId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enonctrar actvidad por fecha",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Codigo de respuesta 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Es un array\", function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(Array.isArray(json)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cedula\": 123456,\n  \"nombre\": \"Antonio Orquidea\",\n  \"correo\": \"orquidea@example.com\",\n  \"programa\": \"Ingenieria\",\n  \"semestre\": 5\n}"
+						},
+						"url": {
+							"raw": "{{baseURL}}/actividades/fecha/{{fecha}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"actividades",
+								"fecha",
+								"{{fecha}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Estudiante-Actvidad",
+			"item": [
+				{
+					"name": "nueva actvidad",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 or 200\", function () {",
+									"    pm.response.to.have.status(201)",
+									"});",
+									"pm.test(\"Guarda actividadId\", function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property(\"id\");",
+									"    pm.collectionVariables.set(\"actividadId\", json.id);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Seminario de Ciencia de Datos\",\n    \"fecha\": \"2025-05-18\",\n    \"cupoMaximo\": 1,\n    \"estado\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/actividades",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"actividades"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inscribir estudiante",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Codigo de respuesta 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Estudiante inscrito en actividad\", function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.actividades.map(a => a.id)).to.include(pm.collectionVariables.get(\"actividadId\"));",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Programacion Web\",\n    \"fecha\": \"2025-05-18\",\n    \"cupoMaximo\": 0,\n    \"estado\": 0\n}"
+						},
+						"url": {
+							"raw": "{{baseURL}}/estudiantes/{{estudianteId}}/inscribirse/{{actividadId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"estudiantes",
+								"{{estudianteId}}",
+								"inscribirse",
+								"{{actividadId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cerrar  actvidad",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Codigo respuesta 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Estado actualizado\", function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.estado).to.eql(2);",
+									"    pm.collectionVariables.set(\"actividadCId\", json.id);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"estado\": 2,\n    \"titulo\": \"Programacion Web\",\n    \"fecha\": \"2025-05-18\",\n    \"cupoMaximo\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/actividades/{{actividadId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"actividades",
+								"{{actividadId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Resenna",
+			"item": [
+				{
+					"name": "hacer resenna",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Codigo de error 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Comprobar id\", function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property(\"id\");",
+									"    pm.collectionVariables.set(\"resennaId\", json.id);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comentario\": \"Muy buena actividad, aprendí mucho.\",\n    \"calificacion\": 5,\n    \"fecha\": \"2025-05-18T12:00:00.000Z\",\n    \"estudianteId\": \"{{estudianteId}}\",\n    \"actividadId\": \"{{actividadCId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/resennas",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"resennas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "estudianteId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "actividadId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "resennaId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "fecha",
+			"value": ""
+		},
+		{
+			"key": "actividadCId",
+			"value": ""
+		}
+	]
+}
