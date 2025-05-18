@@ -16,7 +16,7 @@ export class ActividadController {
     return this.actividadService.cambiarEstado(id, createActividadDto);
   }
 
-  @Get(':fecha')
+  @Get('fecha/:fecha')
   obtenerActividadesPorFecha(@Param('fecha') fecha: string) {
     return this.actividadService.findAllActividadesByDate(fecha);
   }

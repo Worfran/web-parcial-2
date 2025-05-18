@@ -54,6 +54,7 @@ export class ActividadService {
     const actividad = await this.findOne(id);
     const { cupoMaximo, estudiantes } = actividad;
     const estudiantesl = estudiantes.length;
+    
     if (!actividad){
       throw new BussinessLogicException(
         'No se encontro la actividad',
@@ -83,9 +84,9 @@ export class ActividadService {
 
   }
 
-  async findAllActividadesByDate(date: string): Promise<ActividadEntitty[]> {
+  async findAllActividadesByDate(fecha: string): Promise<ActividadEntitty[]> {
     const actividades = await this.actividadRepository.find({
-      where: { fecha: date },
+      where: { fecha: fecha },
       relations: ['estudiantes', 'resennas'],
     });
 
